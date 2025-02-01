@@ -1,0 +1,33 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+exporters:
+  otlp/traces:
+    endpoint: "data-prepper:21890"
+    tls:
+      insecure: true
+  otlp/logs:
+    endpoint: "data-prepper:21891"
+    tls:
+      insecure: true
+  otlp/metrics:
+    endpoint: "data-prepper:21892"
+    tls:
+      insecure: true
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [otlp/traces]
+    logs:
+      receivers: [otlp]
+      exporters: [otlp/logs]
+    metrics:
+      receivers: [otlp]
+      exporters: [otlp/metrics]

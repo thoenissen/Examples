@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" Sdk="Microsoft.Docker.Sdk">
+  <PropertyGroup Label="Globals">
+    <ProjectVersion>2.1</ProjectVersion>
+    <DockerTargetOS>Linux</DockerTargetOS>
+    <DockerPublishLocally>False</DockerPublishLocally>
+    <ProjectGuid>8d0a674b-cae7-43c7-80f8-b85f5e06374c</ProjectGuid>
+    <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger/index.html</DockerServiceUrl>
+    <DockerServiceName>lgtm-opentelemetrydemo</DockerServiceName>
+    <DockerComposeProjectName>lgtm-opentelemetrydemo</DockerComposeProjectName>
+    <DockerComposeBaseFilePath>docker-compose-lgtm</DockerComposeBaseFilePath>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="config\lgtm\mimir-config.yaml" />
+    <None Include="docker-compose-lgtm.override.yml">
+      <DependentUpon>docker-compose-lgtm.yml</DependentUpon>
+    </None>
+    <None Include="docker-compose-lgtm.yml" />
+    <None Include=".dockerignore" />
+    <None Include="config/lgtm/datasources.yaml" />
+    <None Include="config/lgtm/collector-config.yaml" />
+    <None Include="config/lgtm/tempo-config.yaml" />
+  </ItemGroup>
+</Project>

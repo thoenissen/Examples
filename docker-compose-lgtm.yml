@@ -1,0 +1,83 @@
+version: '3'
+
+services:
+  lgtm-opentelemetrydemo:
+    image: ${DOCKER_REGISTRY-}lgtm-webapi
+    build:
+      context: .
+      dockerfile: WebApi/Dockerfile
+    environment:
+      - OTEL_TRACES_ENDPOINT=http://lgtm-otel-collector:4317
+      - OTEL_LOGS_ENDPOINT=http://lgtm-otel-collector:4317
+      - OTEL_METRICS_ENDPOINT=http://lgtm-otel-collector:4317
+    networks:
+      - lgtm-net
+    depends_on:
+      - lgtm-otel-collector
+
+  lgtm-otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.118.0
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./config/lgtm/collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+    networks:
+      - lgtm-net
+    depends_on:
+      - lgtm-loki
+      - lgtm-tempo
+      - lgtm-mimir
+
+  lgtm-loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - lgtm-net
+
+  lgtm-tempo:
+    image: grafana/tempo:latest
+    command: [ "-config.file=/etc/tempo.yaml" ]
+    volumes:
+      - ./config/lgtm/tempo-config.yaml:/etc/tempo.yaml
+    ports:
+      - "3200:3200"
+    networks:
+      - lgtm-net
+
+  lgtm-mimir:
+    image: grafana/mimir:latest
+    command: -config.file=/etc/mimir/mimir.yaml
+    volumes:
+      - ./config/lgtm/mimir-config.yaml:/etc/mimir/mimir.yaml
+    ports:
+      - "9090:9090"
+    networks:
+      - lgtm-net
+
+  lgtm-grafana:
+    image: grafana/grafana:latest
+    environment:
+      - GF_FEATURE_TOGGLES_ENABLE=tempoSearch tempoBackendSearch
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./config/lgtm/datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+    depends_on:
+      - lgtm-loki
+      - lgtm-tempo
+      - lgtm-mimir
+    networks:
+      - lgtm-net
+
+volumes:
+  lgtm-data:
+
+networks:
+  lgtm-net:
+    driver: bridge

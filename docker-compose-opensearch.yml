@@ -47,8 +47,8 @@ services:
   data-prepper:
     image: opensearchproject/data-prepper:2.10.2
     volumes:
-      - ./pipelines.yaml:/usr/share/data-prepper/pipelines/pipelines.yaml
-      - ./data-prepper-config.yaml:/usr/share/data-prepper/config/data-prepper-config.yaml
+      - ./config/opensearch/pipelines.yaml:/usr/share/data-prepper/pipelines/pipelines.yaml
+      - ./config/opensearch/data-prepper-config.yaml:/usr/share/data-prepper/config/data-prepper-config.yaml
     ports:
       - "21890:21890"
       - "21891:21891"
@@ -62,7 +62,7 @@ services:
     image: otel/opentelemetry-collector-contrib:0.118.0
     command: ["--config=/etc/otel-collector-config.yaml"]
     volumes:
-      - ./collector-config.yaml:/etc/otel-collector-config.yaml
+      - ./config/opensearch/collector-config.yaml:/etc/otel-collector-config.yaml
     ports:
       - "4317:4317"
       - "4318:4318"

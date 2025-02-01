@@ -46,7 +46,7 @@ logs-pipeline:
         hosts: ["http://opensearch:9200"]
         insecure: true
         index_type: custom
-        index: logs-%{yyyy.MM.dd}        
+        index: ss4o_logs-%{yyyy.MM.dd}        
 
 metrics-pipeline:
   source:

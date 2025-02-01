@@ -1,11 +1,22 @@
 {
-  "profiles": {
-    "Docker Compose": {
-      "commandName": "DockerCompose",
-      "commandVersion": "1.0",
-      "serviceActions": {
-        "opentelemetrydemo": "StartDebugging"
+   "profiles": {
+      "OpenSearch Stack": {
+         "commandName": "DockerCompose",
+         "commandVersion": "1.0",
+         "dockerComposeFilePath": "docker-compose-opensearch.yml",
+         "commandLineArgs": "-f ./docker-compose-opensearch.yml",
+         "serviceActions": {
+            "opentelemetrydemo": "StartDebugging"
+         }
+      },
+      "LGTM Stack": {
+         "commandName": "DockerCompose",
+         "commandVersion": "1.0",
+         "dockerComposeFilePath": "docker-compose-lgtm.yml",
+         "commandLineArgs": "-f ./docker-compose-lgtm.yml",
+         "serviceActions": {
+            "lgtm-opentelemetrydemo": "StartDebugging"
+         }
       }
-    }
-  }
+   }
 }

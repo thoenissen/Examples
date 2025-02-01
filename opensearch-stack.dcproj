@@ -8,15 +8,17 @@
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger/index.html</DockerServiceUrl>
     <DockerServiceName>opentelemetrydemo</DockerServiceName>
+    <DockerComposeProjectName>opentelemetrydemo-opensearch</DockerComposeProjectName>
+     <DockerComposeBaseFilePath>docker-compose-opensearch</DockerComposeBaseFilePath>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="docker-compose.override.yml">
-      <DependentUpon>docker-compose.yml</DependentUpon>
+    <None Include="docker-compose-opensearch.override.yml">
+      <DependentUpon>docker-compose-opensearch.yml</DependentUpon>
     </None>
-    <None Include="docker-compose.yml" />
+    <None Include="docker-compose-opensearch.yml" />
     <None Include=".dockerignore" />
-    <None Include="data-prepper-config.yaml" />
-    <None Include="collector-config.yaml" />
-    <None Include="pipelines.yaml" />
+    <None Include="config/opensearch/data-prepper-config.yaml" />
+    <None Include="config/opensearch/collector-config.yaml" />
+    <None Include="config/opensearch/pipelines.yaml" />
   </ItemGroup>
 </Project>

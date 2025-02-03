@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" Sdk="Microsoft.Docker.Sdk">
+  <PropertyGroup Label="Globals">
+    <ProjectVersion>2.1</ProjectVersion>
+    <DockerTargetOS>Linux</DockerTargetOS>
+    <DockerPublishLocally>False</DockerPublishLocally>
+    <ProjectGuid>d5ae3f81-5df0-4b3c-989a-ef9dd8eeab49</ProjectGuid>
+    <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger/index.html</DockerServiceUrl>
+    <DockerServiceName>aspire-opentelemetrydemo</DockerServiceName>
+    <DockerComposeProjectName>opentelemetrydemo-aspire</DockerComposeProjectName>
+    <DockerComposeBaseFilePath>docker-compose-aspire</DockerComposeBaseFilePath>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="docker-compose-aspire.override.yml">
+      <DependentUpon>docker-compose-aspire.yml</DependentUpon>
+    </None>
+    <None Include="docker-compose-aspire.yml" />
+    <None Include=".dockerignore" />
+    <None Include="config/aspire/collector-config.yaml" />
+  </ItemGroup>
+</Project>

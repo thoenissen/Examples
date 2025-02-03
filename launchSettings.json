@@ -17,6 +17,15 @@
          "serviceActions": {
             "lgtm-opentelemetrydemo": "StartDebugging"
          }
+      },
+      "Aspire": {
+         "commandName": "DockerCompose",
+         "commandVersion": "1.0",
+         "dockerComposeFilePath": "docker-compose-aspire.yml",
+         "commandLineArgs": "-f ./docker-compose-aspire.yml",
+         "serviceActions": {
+            "aspire-opentelemetrydemo": "StartDebugging"
+         }
       }
    }
 }
